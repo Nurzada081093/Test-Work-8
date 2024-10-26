@@ -22,8 +22,10 @@ const ToolBar = () => {
                         sx={{flexGrow: 1, textDecoration: 'none', padding: '18px 0'}}>
               <img src="https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg" alt="metrobank"/>
             </Typography>
-            <Button color="inherit" to="/" component={NavLink} sx={{color: 'inherit', '&.active': {fontSize: '20px'}}}>Quotes</Button>
-            <Button color="inherit" to="/quotes/add" component={NavLink} sx={{color: 'inherit', '&.active': {fontSize: '20px'}}}>Submit new quote</Button>
+            <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
+              <Button color="inherit" to="/" component={NavLink} sx={{color: 'inherit', '&.active': {fontSize: '20px'}}}>Quotes</Button>
+              <Button color="inherit" to="/quotes/add" component={NavLink} sx={{color: 'inherit', '&.active': {fontSize: '20px'}}}>Submit new quote</Button>
+            </Box>
             <IconButton color="inherit" sx={{marginLeft: '20px'}}>
               <SearchIcon />
             </IconButton>

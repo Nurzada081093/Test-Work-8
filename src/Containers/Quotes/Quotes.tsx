@@ -46,7 +46,10 @@ const Quotes = () => {
         <Container>
           <Grid container spacing={1}>
             <Grid size={6}><Typography variant="h1" sx={{color: 'white'}}><CategoryList/></Typography></Grid>
-            <Grid size={6}> <QuoteCards quotes={quotes}/></Grid>
+            <Grid size={6}>
+              <Typography variant="h2" sx={{color: 'white', margin: '20px 25%'}}>All quotes</Typography>
+              <QuoteCards quotes={quotes}/>
+            </Grid>
           </Grid>
         </Container>
       }

@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid2';
 import QuoteCards from '../../Components/QuoteCards/QuoteCards.tsx';
 import { useCallback, useEffect, useState } from 'react';
 import { IQuote, IQuoteAPI } from '../../types';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import axiosAPI from '../../axiosAPI.ts';
 import { useParams } from 'react-router-dom';
 import Louder from '../../Components/UI/Louder/Louder.tsx';
@@ -47,6 +47,10 @@ const CategoriesQuote = () => {
     }
   }, [getOnePost, params]);
 
+  const titleQuote = quotes.map((quote) => {
+    return quote.category;
+  });
+
   return (
     <>
       {prelouder ? <Louder/> :
@@ -54,6 +58,7 @@ const CategoriesQuote = () => {
           <Grid container spacing={1}>
             <Grid size={6}><CategoryList/></Grid>
             <Grid size={6}>
+              <Typography variant="h3" sx={{color: 'white', margin: '20px 0', textTransform: 'uppercase'}}>{titleQuote[0]}</Typography>
               <QuoteCards quotes={quotes}/>
             </Grid>
           </Grid>

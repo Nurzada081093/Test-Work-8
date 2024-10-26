@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Quotes from '../Quotes/Quotes.tsx';
 import { Typography } from '@mui/material';
 import SubmitNewQuote from '../SubmitNewQuote/SubmitNewQuote.tsx';
+import EditQuote from '../EditQuote/EditQuote.tsx';
 
 const QuotesCentral = () => {
   return (
@@ -15,6 +16,7 @@ const QuotesCentral = () => {
           <Route path="/" element={<Quotes />} ></Route>
           <Route path="/quotes" element={<Quotes />} ></Route>
           <Route path="/quotes/add" element={<SubmitNewQuote />} ></Route>
+          <Route path="/quotes/:idQuote/edit" element={<EditQuote/>}></Route>
           <Route path="*" element={<Typography variant="h1">Not found</Typography>}></Route>
         </Routes>
       </main>

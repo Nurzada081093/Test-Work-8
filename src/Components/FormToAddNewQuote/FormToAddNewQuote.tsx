@@ -5,10 +5,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ICategory, IQuote } from '../../types';
 import selectCategories from '../../Constants.ts';
-import axiosAPI from '../../axiosAPI.ts';
 
 const initialForm = {
   author: '',
@@ -16,9 +15,23 @@ const initialForm = {
   text: '',
 };
 
-const FormToAddNewQuote = () => {
+interface Props {
+  quoteToEdit?: IQuote | undefined;
+  submitForm: (quote: IQuote) => void;
+}
 
+const FormToAddNewQuote: React.FC<Props> = ({quoteToEdit, submitForm}) => {
   const [newQuote, setNewQuote] = useState<IQuote>(initialForm);
+
+  useEffect(() => {
+    if (quoteToEdit) {
+      setNewQuote((prevState) => ({
+        ...prevState,
+        ...quoteToEdit,
+      }));
+    }
+  }, [quoteToEdit]);
+
 
   const onChangeField = (e: SelectChangeEvent<string> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
@@ -29,29 +42,18 @@ const FormToAddNewQuote = () => {
     }));
   };
 
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newQuote);
 
     if (newQuote.author.trim().length === 0 || newQuote.category.trim().length === 0 || newQuote.text.trim().length ===0) {
       alert('Please enter the author, text and select a category!');
     } else {
+      submitForm({...newQuote});
 
-      await axiosAPI.post('quotes.json', {...newQuote});
-      // submitForm({...newPost});
-      //
-      // if (!postToEdit) {
-      //   setNewPost({...initialForm});
-      // }
-
-      setNewQuote({...initialForm});
-
-      // if (!postToEdit) {
-      //
-      // }
+      if (!quoteToEdit) {
+        setNewQuote({...initialForm});
+      }
     }
-
   };
 
   return (
@@ -64,8 +66,7 @@ const FormToAddNewQuote = () => {
       backgroundColor: 'white',
     }}>
       <Typography variant="h4" sx={{flexGrow: 1, textAlign: 'center', marginBottom: '20px'}}>
-        {/*{postToEdit ? 'Edit ' : 'Add new '}*/}
-        Submit New Quote
+        {quoteToEdit ? 'Edit the quote' : 'Submit New Quote'}
       </Typography>
       <Grid container spacing={2} sx={{mx: 'auto', width: '80%'}}>
         <Grid size={12}>
@@ -115,8 +116,7 @@ const FormToAddNewQuote = () => {
         </Grid>
         <Grid size={12}>
           <Button sx={{width: '100%'}} variant="contained" type="submit">
-            {/*{postToEdit ? 'Edit' : 'Save'}*/}
-            save
+            {quoteToEdit ? 'Edit the quote' : 'Add'}
           </Button>
         </Grid>
       </Grid>

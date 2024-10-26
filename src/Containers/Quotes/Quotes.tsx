@@ -4,6 +4,7 @@ import { IQuote, IQuoteAPI } from '../../types';
 import axiosAPI from '../../axiosAPI.ts';
 import QuoteCards from '../../Components/QuoteCards/QuoteCards.tsx';
 import Grid from '@mui/material/Grid2';
+import CategoryList from '../../Components/CategoryList/CategoryList.tsx';
 
 const Quotes = () => {
   const [quotes, setQuotes] = useState<IQuote[]>([]);
@@ -36,13 +37,11 @@ const Quotes = () => {
     void getAllQuotes();
   }, [getAllQuotes]);
 
-  console.log(quotes);
-
 
   return (
     <Container>
       <Grid container spacing={1}>
-        <Grid size={6}><Typography variant="h1" sx={{color: 'white'}}>все цитаты</Typography></Grid>
+        <Grid size={6}><Typography variant="h1" sx={{color: 'white'}}><CategoryList/></Typography></Grid>
         <Grid size={6}> <QuoteCards quotes={quotes}/></Grid>
       </Grid>
     </Container>

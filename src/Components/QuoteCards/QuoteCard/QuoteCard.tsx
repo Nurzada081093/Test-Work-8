@@ -14,7 +14,10 @@ const QuoteCard: React.FC<Props> = ({quote}) => {
 
   const params = useParams<{id: string}>();
 
+
   const deleteQuote = async () => {
+
+    console.log(params);
     try {
       // setLouder(true);
       if (params.id) {
@@ -26,7 +29,6 @@ const QuoteCard: React.FC<Props> = ({quote}) => {
     } finally {
       // setLouder(false);
     }
-    console.log(params);
 
   };
 
@@ -39,11 +41,10 @@ const QuoteCard: React.FC<Props> = ({quote}) => {
             <Typography variant="body2" sx={{ color: 'black', fontSize: '18px'}}><b>«{quote.text}»</b> <br/> <span style={{fontStyle: 'italic', color: 'text.secondary'}}>- {quote.author} ©</span></Typography>
           </CardContent>
           <Box style={{width: '80px', height: '30px', display: 'flex', justifyContent: 'space-around', marginRight: '30px'}}>
-            <Button sx={{width: '30px', height: '30', display: 'inline', padding: 0}} to={`/quotes/${quote.id}/edit`} component={NavLink}
-            >
+            <Button sx={{width: '30px', height: '30', display: 'inline', padding: 0}} to={`/quotes/${quote.id}/edit`} component={NavLink}>
               <img  width="30" height="30" src="https://img.icons8.com/sf-regular/48/create-new.png" alt="create-new"/>
             </Button>
-            <Button sx={{width: '30px', height: '30', display: 'inline', padding: 0}} to={`/`} component={NavLink} onClick={deleteQuote}>
+            <Button sx={{width: '30px', height: '30', display: 'inline', padding: 0}} to={`/quotes`} component={NavLink} onClick={deleteQuote}>
               <img width="30" height="30" src="https://img.icons8.com/sf-black/64/delete-sign.png"
                    alt="delete-sign"/>
             </Button>

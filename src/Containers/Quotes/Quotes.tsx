@@ -5,14 +5,16 @@ import axiosAPI from '../../axiosAPI.ts';
 import QuoteCards from '../../Components/QuoteCards/QuoteCards.tsx';
 import Grid from '@mui/material/Grid2';
 import CategoryList from '../../Components/CategoryList/CategoryList.tsx';
+import Louder from '../../Components/UI/Louder/Louder.tsx';
 
 const Quotes = () => {
   const [quotes, setQuotes] = useState<IQuote[]>([]);
+  const [prelouder, setPrelouder] = useState<boolean>(false);
 
   const getAllQuotes = useCallback(async () => {
 
     try {
-      // setLouder(true);
+      setPrelouder(true);
       const responseQuotes: {data: IQuoteAPI} =  await axiosAPI<IQuoteAPI>('quotes.json');
       const quotesData = responseQuotes.data;
 
@@ -29,7 +31,7 @@ const Quotes = () => {
     } catch (e) {
       alert(e);
     } finally {
-      // setLouder(false);
+      setPrelouder(false);
     }
   }, []);
 
@@ -39,12 +41,16 @@ const Quotes = () => {
 
 
   return (
-    <Container>
-      <Grid container spacing={1}>
-        <Grid size={6}><Typography variant="h1" sx={{color: 'white'}}><CategoryList/></Typography></Grid>
-        <Grid size={6}> <QuoteCards quotes={quotes}/></Grid>
-      </Grid>
-    </Container>
+    <>
+      {prelouder ? <Louder/> :
+        <Container>
+          <Grid container spacing={1}>
+            <Grid size={6}><Typography variant="h1" sx={{color: 'white'}}><CategoryList/></Typography></Grid>
+            <Grid size={6}> <QuoteCards quotes={quotes}/></Grid>
+          </Grid>
+        </Container>
+      }
+    </>
   );
 };
 
